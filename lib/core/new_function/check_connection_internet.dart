@@ -1,0 +1,3 @@
+class CheckInternetConnection {
+  CheckInternetConnection._();
+}

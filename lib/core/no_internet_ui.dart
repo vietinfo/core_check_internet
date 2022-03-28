@@ -18,23 +18,16 @@ class NoInternetScreen extends StatefulWidget {
 
 class _NoInterScreenState extends State<NoInternetScreen> {
   final GlobalKey<ScaffoldState> _scafState = GlobalKey<ScaffoldState>();
-  late StreamSubscription<InternetConnectionStatus> listener;
+  // late StreamSubscription<InternetConnectionStatus> listener;
   @override
   void initState() {
-    listener = InternetConnectionChecker().onStatusChange.listen(
-      (InternetConnectionStatus status) {
-        if (status == InternetConnectionStatus.connected) {
-          Navigator.pop(context, true);
-        }
-      },
-    );
+    CheckConnection.listener.onData((data) {
+      if (data == InternetConnectionStatus.connected) {
+        print(data);
+        Navigator.of(context).pop(true);
+      }
+    });
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    listener.cancel();
-    super.dispose();
   }
 
   @override
@@ -43,7 +36,6 @@ class _NoInterScreenState extends State<NoInternetScreen> {
     return WillPopScope(
       onWillPop: () async {
         if (!await InternetConnectionChecker().hasConnection) {
-          CheckConnection().dispose();
           Navigator.pop(context, false);
           return true;
         }

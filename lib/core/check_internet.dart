@@ -1,7 +1,8 @@
 part of '../core_check_internet.dart';
 
-class CheckConnection {
+class CheckConnection extends GetxController {
   static late StreamSubscription<InternetConnectionStatus> listener;
+
   init(BuildContext context) {
     listener = InternetConnectionChecker().onStatusChange.listen(
       (InternetConnectionStatus status) {
@@ -33,17 +34,14 @@ class CheckConnection {
   }
 
   checkInternetConnection(BuildContext context) async {
+    init(context);
     bool _check = true;
     if (!await InternetConnectionChecker().hasConnection) {
       await Navigator.push(context,
               MaterialPageRoute(builder: (context) => const NoInternetScreen()))
           .then((value) => _check = value);
-      if (_check == true) {
-        init(context);
-      }
       return _check;
     }
-    init(context);
     return _check;
   }
 

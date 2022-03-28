@@ -11,12 +11,21 @@ class NavigatorScreen extends StatefulWidget {
 class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   void dispose() {
-    CheckConnection().dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Navigator"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const <Widget>[Text("Has been connected")],
+        ),
+      ),
+    );
   }
 }
