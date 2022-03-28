@@ -16,15 +16,9 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Navigator"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[Text("Has been connected")],
-        ),
+    return const NoInternetScreen(
+      body: Scaffold(
+        body: Center(child: Text("Navigator!")),
       ),
     );
   }

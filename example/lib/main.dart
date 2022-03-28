@@ -47,29 +47,27 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   @override
+  void initState() {
+    CheckInternetConnection().init(context);
+    // CheckInternetConnection().checkFirst(false);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ElevatedButton(
-                onPressed: () async {
-                  if (await CheckConnection()
-                      .checkInternetConnection(context)) {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const NavigatorScreen()));
-                  }
-                },
-                child: const Text("Check Connection"))
-          ],
-        ),
-      ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const NavigatorScreen()));
+        },
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
