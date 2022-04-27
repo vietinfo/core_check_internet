@@ -22,4 +22,8 @@ class ListenChangeConnection {
       _firstRun = false;
     }
   }
+
+  dispose() {
+    loaddingController.isClosed;
+  }
 }

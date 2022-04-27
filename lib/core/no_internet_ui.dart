@@ -6,7 +6,11 @@ import 'package:flutter_svg/svg.dart';
 
 class NoInternetScreen extends StatefulWidget {
   final Widget body;
-  const NoInternetScreen({Key? key, required this.body}) : super(key: key);
+
+  /// function recall fetchdata
+  final Function() callBack;
+  const NoInternetScreen({Key? key, required this.body, required this.callBack})
+      : super(key: key);
 
   @override
   State<NoInternetScreen> createState() => _NoInterScreenState();
@@ -39,7 +43,11 @@ class _NoInterScreenState extends State<NoInternetScreen> {
               initialData: CheckInternetConnection().checkCurrentInternet,
               builder: (context, snapshot) {
                 // if (!snapshot.hasData) return const LoadingScreen();
-                if (snapshot.hasData && snapshot.data!) return widget.body;
+                if (snapshot.hasData && snapshot.data!) {
+                  widget.callBack();
+                  return widget.body;
+                }
+
                 return Scaffold(
                   key: _scafState,
                   body: SizedBox(

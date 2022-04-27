@@ -1,3 +1,4 @@
+import 'package:example/navigator_crl.dart';
 import 'package:flutter/material.dart';
 import 'package:core_check_internet/core_check_internet.dart';
 
@@ -9,6 +10,14 @@ class NavigatorScreen extends StatefulWidget {
 }
 
 class _NavigatorScreenState extends State<NavigatorScreen> {
+  final NavigatorController _navigatorController =
+      Get.put(NavigatorController());
+  @override
+  void initState() {
+    // _navigatorController.fetch();
+    super.initState();
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -16,10 +25,21 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const NoInternetScreen(
-      body: Scaffold(
-        body: Center(child: Text("Navigator!")),
-      ),
+    return NoInternetScreen(
+      body: Scaffold(body: Obx(() {
+        if (_navigatorController.list.isEmpty) {
+          return const Center(
+            child: Text("Rỗng"),
+          );
+        }
+        return ListView.builder(
+            itemBuilder: (context, index) =>
+                Text(_navigatorController.list[index]),
+            itemCount: _navigatorController.list.length);
+      })),
+      callBack: () {
+        _navigatorController.fetch();
+      },
     );
   }
 }
