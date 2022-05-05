@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CallBackUI extends StatefulWidget {
-  final VoidCallback callbackback;
+  final Future Function() callback;
   final Widget child;
-  const CallBackUI({Key? key, required this.callbackback, required this.child})
+  const CallBackUI({Key? key, required this.callback, required this.child})
       : super(key: key);
 
   @override
@@ -14,7 +14,7 @@ class _CallBackUIState extends State<CallBackUI> {
   @override
   void initState() {
     // TODO: implement initState
-    widget.callbackback();
+    widget.callback();
     super.initState();
   }
 

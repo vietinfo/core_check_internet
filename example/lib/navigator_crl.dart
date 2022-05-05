@@ -8,7 +8,7 @@ class NavigatorController extends GetxController {
   //   super.onInit();
   // }
 
-  fetch() async {
+  Future fetch() async {
     await Future.delayed(const Duration(seconds: 4));
     print("dsdsds");
     list.value = [
@@ -22,4 +22,7 @@ class NavigatorController extends GetxController {
       "dsda",
     ];
   }
+
+  @override
+  void dispose() {}
 }

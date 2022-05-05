@@ -6,7 +6,7 @@ class CheckInternetConnection {
   factory CheckInternetConnection() => _instance;
   static late StreamSubscription<ConnectivityResult> listener;
   late bool _checkFirst = true;
-  late bool checkCurrentInternet = true;
+  static late bool checkCurrentInternet = true;
   init(BuildContext context) {
     Connectivity().checkConnectivity().then((value) {
       if (value == ConnectivityResult.none) {
@@ -123,8 +123,12 @@ class CheckInternetConnection {
     });
   }
 
-  checkFirst(check) {
+  void checkFirst(check) {
     _checkFirst = check;
+  }
+
+  bool getCurrectConnection() {
+    return checkCurrentInternet;
   }
 
   Future<bool> checkConnectionAvailability() async {

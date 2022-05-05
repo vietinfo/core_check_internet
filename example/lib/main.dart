@@ -12,12 +12,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      getPages: [
+        GetPage(
+            name: NavigatorScreen.routeName,
+            page: () => const NavigatorScreen()),
+      ],
     );
   }
 }
@@ -49,7 +54,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     CheckInternetConnection().init(context);
-    // CheckInternetConnection().checkFirst(false);
     super.initState();
   }
 
@@ -62,8 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const NavigatorScreen()));
+          Get.toNamed(NavigatorScreen.routeName);
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),

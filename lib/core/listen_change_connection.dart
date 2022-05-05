@@ -10,7 +10,7 @@ class ListenChangeConnection {
   Sink<bool> get loaddingSink => loaddingController.sink;
   bool _firstRun = true;
   listenChangeConnection() async {
-    bool result = CheckInternetConnection().checkCurrentInternet;
+    bool result = CheckInternetConnection().getCurrectConnection();
     if (!result) {
       Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
         if (_firstRun == true) {

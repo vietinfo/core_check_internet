@@ -9,7 +9,7 @@ class NoInternetScreen extends StatefulWidget {
   final Widget body;
 
   /// function recall fetchdata
-  final Function() callBack;
+  final Future Function() callBack;
   const NoInternetScreen({Key? key, required this.body, required this.callBack})
       : super(key: key);
 
@@ -41,12 +41,17 @@ class _NoInterScreenState extends State<NoInternetScreen> {
         builder: (context, snapshot) {
           return FutureBuilder<bool>(
               future: CheckInternetConnection().checkConnectionAvailability(),
-              initialData: CheckInternetConnection().checkCurrentInternet,
+              initialData: CheckInternetConnection().getCurrectConnection(),
               builder: (context, snapshot) {
-                // if (!snapshot.hasData) return const LoadingScreen();
-                if (snapshot.hasData && snapshot.data!) {
+                // if (snapshot.connectionState == ConnectionState.waiting) {
+                //   return const LoadingScreen();
+                // }
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData &&
+                    snapshot.data!) {
+                  print("abc");
                   return CallBackUI(
-                      callbackback: widget.callBack(), child: widget.body);
+                      callback: widget.callBack, child: widget.body);
                 }
 
                 return Scaffold(

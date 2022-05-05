@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:core_check_internet/core_check_internet.dart';
 
 class NavigatorScreen extends StatefulWidget {
+  static const String routeName = '/NavigatorScreen';
   const NavigatorScreen({Key? key}) : super(key: key);
 
   @override
@@ -14,7 +15,6 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       Get.put(NavigatorController());
   @override
   void initState() {
-    // _navigatorController.fetch();
     super.initState();
   }
 
@@ -26,19 +26,23 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   @override
   Widget build(BuildContext context) {
     return NoInternetScreen(
-      body: Scaffold(body: Obx(() {
-        if (_navigatorController.list.isEmpty) {
-          return const Center(
-            child: Text("Rỗng"),
-          );
-        }
-        return ListView.builder(
-            itemBuilder: (context, index) =>
-                Text(_navigatorController.list[index]),
-            itemCount: _navigatorController.list.length);
-      })),
-      callBack: () {
-        _navigatorController.fetch();
+      body: Scaffold(
+        body: Obx(
+          () {
+            if (_navigatorController.list.isEmpty) {
+              return const Center(
+                child: Text("Rỗng"),
+              );
+            }
+            return ListView.builder(
+                itemBuilder: (context, index) =>
+                    Text(_navigatorController.list[index]),
+                itemCount: _navigatorController.list.length);
+          },
+        ),
+      ),
+      callBack: () async {
+        await _navigatorController.fetch();
       },
     );
   }
