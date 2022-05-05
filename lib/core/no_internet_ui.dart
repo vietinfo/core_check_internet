@@ -1,3 +1,4 @@
+import 'package:core_check_internet/core/callback_ui.dart';
 import 'package:core_check_internet/core/listen_change_connection.dart';
 import 'package:core_check_internet/core/loading_ui.dart';
 import 'package:core_check_internet/core_check_internet.dart';
@@ -44,8 +45,8 @@ class _NoInterScreenState extends State<NoInternetScreen> {
               builder: (context, snapshot) {
                 // if (!snapshot.hasData) return const LoadingScreen();
                 if (snapshot.hasData && snapshot.data!) {
-                  widget.callBack();
-                  return widget.body;
+                  return CallBackUI(
+                      callbackback: widget.callBack(), child: widget.body);
                 }
 
                 return Scaffold(
